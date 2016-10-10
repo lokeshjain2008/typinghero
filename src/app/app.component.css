@@ -1,13 +1,7 @@
 .valid{
   color: lightgreen;
 }
-.workingWordInput{
-  width: 100%;
-  color: #009688;
-  font-size: 18px;
-  border-radius: 3px;
-  padding: 3px;
-}
+
 .invalid{
   color: orangered;
 }

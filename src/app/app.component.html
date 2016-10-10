@@ -1,29 +1,35 @@
-<div class="container" style="width: 70%; margin:auto;">
+<div class="container">
 
   <div class="timer" style="color:lightblue">{{timerDisplay}}</div>
 
-  <div class="para-holder"
-  style="padding:10px; border-radius: 3px; border:2px solid lightgreen;font-size:18px; margin-bottom: 20px;">
-
-    <span class="para-done">
+  <md-card>
+    <md-card-subtitle>Typing Test.</md-card-subtitle>
+    <md-card-title>
+      <span class="para-done">
       {{paraDone}}
     </span>
-    <span class="para-working" style="color:blue; text-decoration:underline">
-      {{paraWorking}}
+    <span class="para-working">
+      <mark>{{paraWorking}}</mark>
     </span>
     <span class="para-left">
       {{paraLeft}}
     </span>
+    </md-card-title>
 
-  </div>
+  </md-card>
 
-  <input type="text"
+  <md-input type="text"
+  style="width:100%"
     autofocus
-    class="workingWordInput"
+    aria-placeholder="Typing block. type here."
+    placeholder="Type here..."
+    class="demo-full-width"
     [(ngModel)]="workingWord"
     [class.invalid]="!wordIsValid"
-   (keyup)="checkWord()" />
-   <button (click)="resetRace()">Start again</button>
+   (keyup)="checkWord()" >
+
+  </md-input>
+   <button md-raised-button color="primary" (click)="resetRace()">Start again</button>
 
    <div class="summray">
      {{ totalSpeed }} WPM
