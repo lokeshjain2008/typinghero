@@ -63,7 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
   startTimer() {
     this.timer = setInterval(() => {
       this.timerDisplay += 1;
-      this.totalSpeed = Number.parseInt(
+      this.totalSpeed = Math.floor(
         (this.paraDoneArray.length / this.timerDisplay) * 60
       );
     }, 1000);
