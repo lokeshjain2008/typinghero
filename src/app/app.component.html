@@ -1,0 +1,32 @@
+<div class="container" style="width: 70%; margin:auto;">
+
+  <div class="timer" style="color:lightblue">{{timerDisplay}}</div>
+
+  <div class="para-holder"
+  style="padding:10px; border-radius: 3px; border:2px solid lightgreen;font-size:18px; margin-bottom: 20px;">
+
+    <span class="para-done">
+      {{paraDone}}
+    </span>
+    <span class="para-working" style="color:blue; text-decoration:underline">
+      {{paraWorking}}
+    </span>
+    <span class="para-left">
+      {{paraLeft}}
+    </span>
+
+  </div>
+
+  <input type="text"
+    autofocus
+    class="workingWordInput"
+    [(ngModel)]="workingWord"
+    [class.invalid]="!wordIsValid"
+   (keyup)="checkWord()" />
+   <button (click)="resetRace()">Start again</button>
+
+   <div class="summray">
+     {{ totalSpeed }} WPM
+   </div>
+
+</div>
