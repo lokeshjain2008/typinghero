@@ -1,17 +1,23 @@
-<div class="container">
+<div class="container" style="width:70%;margin:auto;">
 
-  <div class="timer" style="color:lightblue">{{timerDisplay}}</div>
+  <div class="timer col s1" style="color:lightblue">
+    Timer: {{timerDisplay}} |
+  </div>
 
   <md-card>
-    <md-card-subtitle>Typing Test.</md-card-subtitle>
+    <md-card-subtitle>Typing Test.
+      <span *ngIf="!wordIsValid">
+        | Fix typo.
+    </span>
+    </md-card-subtitle>
     <md-card-title>
       <span class="para-done">
       {{paraDone}}
     </span>
     <span class="para-working">
-      <mark>{{paraWorking}}</mark>
+      <mark [class.invalid]="!wordIsValid">{{paraWorking}}</mark>
     </span>
-    <span class="para-left">
+    <span class="para-left md-display-1">
       {{paraLeft}}
     </span>
     </md-card-title>
@@ -19,20 +25,26 @@
   </md-card>
 
   <md-input type="text"
-  style="width:100%"
-    autofocus
+    style="width:100%"
+    autofocus="true"
+    autocomplete="false"
+    spellcheck="false"
+    autocorrect="false"
+    autocapitalize="false"
     aria-placeholder="Typing block. type here."
-    placeholder="Type here..."
+    [placeholder]="workingWordPlaceholder"
     class="demo-full-width"
     [(ngModel)]="workingWord"
     [class.invalid]="!wordIsValid"
+    [disabled]="currentParaCompleted"
    (keyup)="checkWord()" >
-
   </md-input>
+
+  <div class="summray">
+     <md-icon>keyboard</md-icon>{{ totalSpeed }} WPM
+   </div>
    <button md-raised-button color="primary" (click)="resetRace()">Start again</button>
 
-   <div class="summray">
-     {{ totalSpeed }} WPM
-   </div>
+
 
 </div>

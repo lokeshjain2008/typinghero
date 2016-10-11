@@ -14,6 +14,8 @@ export class AppComponent implements OnInit, OnDestroy {
   timerDisplay: number = 0;
   wordIsValid: boolean = true;
   totalSpeed: number = 0;
+  currentParaCompleted: boolean = false;
+  workingWordPlaceholder: string = '';
 
   // para related stuff.
 
@@ -33,22 +35,26 @@ export class AppComponent implements OnInit, OnDestroy {
 
   _startRace() {
     // starting code
-    this.para = `Hey this is first line. You can create something that can be used by others and
-    will; be; RTCI. thank you.`;
-
-    this.paraArray = this.para.split(/\s/).filter(word => word.length);
-
+    this.para = `hey this is     the base line and this should work.
+    This is the second line to complete and finish, the test.`;
+    this.workingWordPlaceholder = 'Type here...';
+    this.currentParaCompleted = false;
+    this.paraArray = this.para.split(/\s/)
+      .filter(word => word.length)
+      .map(word => word.trim() && word + ' ');
+    // remve space from the last element.
+    let lastElement = this.paraArray[this.paraArray.length - 1];
+    this.paraArray[this.paraArray.length - 1] = lastElement.trim();
     this.paraWorking = this.paraArray.shift();
-
     this.paraLeft = this.paraArray.join(' ');
-
     this.startTime = new Date();
   }
 
   checkWord(): boolean {
     // start timer
+    if (!this.paraWorking) { return; }
     if (!this.timer) { this.startTimer(); };
-    if (this.workingWord && (this.workingWord.trim() === this.paraWorking)) {
+    if (this.workingWord && (this.workingWord === this.paraWorking)) {
       if (!this.paraArray.length) {
         this.paraCompleted();
       }
@@ -56,10 +62,13 @@ export class AppComponent implements OnInit, OnDestroy {
       this.workingWord = '';
       return;
     }
+    if (!this.workingWord.trim()) {
+      this.workingWord = '';
+    }
     this.wordIsValid = this.paraWorking.includes(this.workingWord && this.workingWord.trim());
   }
 
-  startTimer() {
+  startTimer(): void {
     this.timer = setInterval(() => {
       this.timerDisplay += 1;
       this.totalSpeed = Math.floor(
@@ -85,6 +94,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   paraCompleted() {
+    this.currentParaCompleted = true;
+    this.workingWordPlaceholder = 'Click start button to start again.';
     clearInterval(this.timer);
     alert(`Your speed is ${this.totalSpeed} WPM.`);
   }
